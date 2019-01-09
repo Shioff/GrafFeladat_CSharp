@@ -64,6 +64,121 @@ namespace GrafFeladat_CSharp
             elek.Add(new El(cs2, cs1));
         }
 
+        public void SzelessegiBejar(int kezdo)
+        {
+            var bejar = new List<int>();
+            var kovetkezo = new Queue<int>();
+
+            kovetkezo.Enqueue(kezdo);
+            bejar.Add(kezdo);
+            while (kovetkezo.Count > 0)
+            {
+                int k = kovetkezo.Dequeue();
+
+                Console.WriteLine(csucsok[k]);
+                //Console.WriteLine(elek[k]);
+                //Console.WriteLine();
+
+                foreach (var el in this.elek)
+                {
+                    if ((el.Csucs1 == k) && !(bejar.Contains(el.Csucs2)))
+                    {
+                        kovetkezo.Enqueue(el.Csucs2);
+                        //Console.WriteLine(kovetkezo.Peek());
+                        bejar.Add(el.Csucs2);
+                    }
+                }
+            }
+        }
+
+        public void MelysegBejar(int kezdo)
+        {
+            var bejar = new List<int>();
+            var kovetkezo = new Stack<int>();
+
+            kovetkezo.Push(kezdo);
+            bejar.Add(kezdo);
+            while (kovetkezo.Count > 0)
+            {
+                int k = kovetkezo.Pop();
+
+                Console.WriteLine(csucsok[k]);
+                //Console.WriteLine(elek[k]);
+                //Console.WriteLine(k);
+                foreach (var el in this.elek)
+                {
+                    if ((el.Csucs1 == k) && !(bejar.Contains(el.Csucs2)))
+                    {
+                        kovetkezo.Push(el.Csucs2);
+                        //Console.WriteLine(kovetkezo.Peek());
+                        bejar.Add(el.Csucs2);
+                    }
+                }
+            }
+        }
+
+        public bool Osszefuggo()
+        {
+            var bejar = new List<int>();
+            var kovetkezo = new Queue<int>();
+
+            kovetkezo.Enqueue(0);
+            bejar.Add(0);
+            while (kovetkezo.Count > 0)
+            {
+                int k = kovetkezo.Dequeue();
+
+                foreach (var el in this.elek)
+                {
+                    if ((el.Csucs1 == k) && !(bejar.Contains(el.Csucs2)))
+                    {
+                        kovetkezo.Enqueue(el.Csucs2);
+                        bejar.Add(el.Csucs2);
+                    }
+                }
+            }
+            if (bejar.Count == this.csucsokSzama)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Graf feszitoFa()
+        {
+            var tmpFa = new Graf(this.csucsokSzama);
+
+            var bejar = new List<int>();
+            var kovetkezo = new Queue<int>();
+
+            kovetkezo.Enqueue(0);
+            bejar.Add(0);
+
+
+            while (kovetkezo.Count > 0)
+            {
+                int k = kovetkezo.Dequeue();
+
+                foreach (var el in this.elek)
+                {
+                    if (el.Csucs1 == elek[k].Csucs1)
+                    {
+                        if (!bejar.Contains(el.Csucs2))
+                        {
+                            kovetkezo.Enqueue(el.Csucs1);
+                            bejar.Add(el.Csucs2);
+                            tmpFa.Hozzaad(el.Csucs1, el.Csucs2);
+                        }
+
+                    }
+                }
+            }
+            return tmpFa;
+        }
+
         public override string ToString()
         {
             string str = "Csucsok:\n";

@@ -25,7 +25,7 @@
             this.Csucs1 = csucs1;
             this.Csucs2 = csucs2;
         }
-        858
+        
         public override string ToString()
         {
             return string.Format("({0} - {1})", Csucs1, Csucs2);
