@@ -20,7 +20,7 @@ namespace GrafFeladat_CSharp
             graf.Hozzaad(4, 5);
             graf.Hozzaad(2, 4);
 
-            Console.WriteLine("Széllességi bejárás");
+            Console.WriteLine("Szélességi bejárás");
             graf.SzelessegiBejar(0);
 
             Console.WriteLine("Mélységi bejárás");
